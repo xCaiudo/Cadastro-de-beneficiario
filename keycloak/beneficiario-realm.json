@@ -1,0 +1,99 @@
+{
+  "realm": "beneficiario-realm",
+  "displayName": "Cadastro de Beneficiário",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrador do sistema"
+      },
+      {
+        "name": "OPERADOR",
+        "description": "Operador — cadastra e edita beneficiários"
+      },
+      {
+        "name": "VISUALIZADOR",
+        "description": "Somente leitura"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "beneficiario-frontend",
+      "name": "Beneficiário Frontend (Angular)",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:4200/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4200"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:4200/*"
+      },
+      "protocol": "openid-connect"
+    },
+    {
+      "clientId": "beneficiario-backend",
+      "name": "Beneficiário Backend (NestJS)",
+      "enabled": true,
+      "publicClient": false,
+      "bearerOnly": true,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "protocol": "openid-connect"
+    }
+  ],
+  "users": [
+    {
+      "username": "admin.sistema",
+      "email": "admin@beneficiario.local",
+      "firstName": "Admin",
+      "lastName": "Sistema",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Admin@1234",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["ADMIN"]
+    },
+    {
+      "username": "operador.teste",
+      "email": "operador@beneficiario.local",
+      "firstName": "Operador",
+      "lastName": "Teste",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Operador@1234",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["OPERADOR"]
+    }
+  ]
+}
