@@ -1,0 +1,22 @@
+{
+  "name": "cadastro-de-beneficiario",
+  "version": "0.0.1",
+  "description": "Cadastro de Beneficiário - Angular 19 + NestJS + Keycloak",
+  "private": true,
+  "scripts": {
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "infra:logs": "docker compose logs -f",
+    "keycloak:up": "docker compose up -d keycloak",
+    "keycloak:down": "docker compose stop keycloak",
+    "db:up": "docker compose up -d postgres-app",
+    "db:down": "docker compose stop postgres-app",
+    "backend:dev": "cd backend && npm run start:dev",
+    "backend:build": "cd backend && npm run build",
+    "backend:prod": "cd backend && npm run start:prod",
+    "frontend:dev": "cd frontend && ng serve",
+    "frontend:build": "cd frontend && ng build",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "start": "npm run infra:up && npm run backend:dev"
+  }
+}

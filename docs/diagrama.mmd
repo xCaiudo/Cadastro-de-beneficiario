@@ -1,0 +1,149 @@
+erDiagram
+    BANCO {
+        uuid id PK
+        string nome
+        string ispb
+        string codigo
+        string logradouro
+        string numero
+        string complemento
+        string bairro
+        string cidade
+        string uf
+        string cep
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    AGENCIA {
+        uuid id PK
+        uuid banco_id FK
+        string codigo
+        string digito
+        string nome
+        string logradouro
+        string numero
+        string complemento
+        string bairro
+        string cidade
+        string uf
+        string cep
+        string faixa_cep_inicial
+        string faixa_cep_final
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    CLIENTE {
+        uuid id PK
+        string nome
+        string cpf_cnpj
+        string tipo_pessoa "PF ou PJ"
+        string logradouro
+        string numero
+        string complemento
+        string bairro
+        string cidade
+        string uf
+        string cep
+        string email
+        string telefone
+        string status "ATIVO, INATIVO"
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    CONTA_CORRENTE {
+        uuid id PK
+        uuid cliente_id FK
+        uuid banco_id FK
+        uuid agencia_id FK
+        string numero
+        string digito
+        string tipo "CC, POUPANCA"
+        string status "ATIVA, INATIVA, BLOQUEADA"
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    BENEFICIARIO {
+        uuid id PK
+        uuid cliente_id FK "UNIQUE - 1 cliente = 1 beneficiario"
+        char correntista "S ou N"
+        date data_inicio
+        string status "ATIVO, INATIVO"
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    CONVENIO {
+        uuid id PK
+        uuid beneficiario_id FK
+        uuid agencia_id FK
+        uuid conta_corrente_id FK
+        string nome
+        string codigo
+        string descricao
+        date data_inicio
+        date data_fim
+        string status "ATIVO, INATIVO"
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    PAGADOR_CONVENIO {
+        uuid id PK
+        uuid convenio_id FK
+        string nome
+        string tipo_pessoa "PF ou PJ"
+        string cpf_cnpj
+        string email
+        string logradouro
+        string numero
+        string complemento
+        string bairro
+        string cidade
+        string uf
+        string cep
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    MODALIDADE {
+        uuid id PK
+        string codigo "digitavel pelo usuario"
+        string codigo_banco
+        string tipo_carteira "CS, CV, D, CC"
+        char cobra_iof "S ou N"
+        string nome
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    MODALIDADE_CONVENIO {
+        uuid id PK
+        uuid convenio_id FK
+        uuid modalidade_id FK
+        decimal valor_multa
+        string tipo_multa "ISENTO, VALOR_FIXO, PERCENTUAL"
+        decimal valor_mora
+        decimal valor_float
+        string tipo_negativacao "NEGATIVAR, PROTESTAR, NAO_NEGATIVAR_NAO_PROTESTAR"
+        string mensagem1
+        string mensagem2
+        string mensagem3
+        timestamp criado_em
+        timestamp atualizado_em
+    }
+
+    BANCO ||--o{ AGENCIA : "possui"
+    BANCO ||--o{ CONTA_CORRENTE : "referenciado em"
+    AGENCIA ||--o{ CONTA_CORRENTE : "referenciada em"
+    AGENCIA ||--o{ CONVENIO : "referenciada em"
+    CONTA_CORRENTE ||--o{ CONVENIO : "referenciada em"
+    CLIENTE ||--o{ CONTA_CORRENTE : "possui"
+    CLIENTE ||--|| BENEFICIARIO : "pode ser beneficiario"
+    BENEFICIARIO ||--o{ CONVENIO : "possui"
+    CONVENIO ||--o{ PAGADOR_CONVENIO : "possui"
+    CONVENIO ||--o{ MODALIDADE_CONVENIO : "possui"
+    MODALIDADE ||--o{ MODALIDADE_CONVENIO : "referenciada em"
