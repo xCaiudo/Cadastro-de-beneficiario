@@ -1,0 +1,67 @@
+<div class="dashboard">
+
+  <!-- Welcome -->
+  <div class="welcome-section">
+    <h1 class="welcome-title">
+      Bem-vindo ao Cadastro de Beneficiário
+      <span *ngIf="userName">, {{ userName }}</span>!
+    </h1>
+    <p class="welcome-subtitle">Selecione um módulo abaixo ou acesse seus favoritos.</p>
+  </div>
+
+  <!-- Favoritos -->
+  @if (favService.favorites().length > 0) {
+    <section class="section">
+      <h2 class="section-title">
+        <i class="pi pi-star-fill text-yellow-400"></i>
+        Favoritos
+      </h2>
+      <div class="cards-grid">
+        @for (item of favService.favorites(); track item.route) {
+          <a [routerLink]="item.route" class="nav-card fav-card">
+            <i [class]="item.icon + ' card-icon'"></i>
+            <span class="card-label">{{ item.label }}</span>
+            <p-button
+              icon="pi pi-star-fill"
+              [text]="true"
+              [rounded]="true"
+              size="small"
+              severity="warn"
+              class="card-fav-btn"
+              pTooltip="Remover dos favoritos"
+              (onClick)="$event.preventDefault(); $event.stopPropagation(); favService.toggle(item)"
+            />
+          </a>
+        }
+      </div>
+    </section>
+    <p-divider />
+  }
+
+  <!-- Acesso Rápido -->
+  <section class="section">
+    <h2 class="section-title">
+      <i class="pi pi-th-large"></i>
+      Acesso Rápido
+    </h2>
+    <div class="cards-grid">
+      @for (item of quickAccess; track item.route) {
+        <a [routerLink]="item.route" class="nav-card">
+          <i [class]="item.icon + ' card-icon'"></i>
+          <span class="card-label">{{ item.label }}</span>
+          <p-button
+            [icon]="favService.isFavorite(item.route) ? 'pi pi-star-fill' : 'pi pi-star'"
+            [text]="true"
+            [rounded]="true"
+            size="small"
+            [severity]="favService.isFavorite(item.route) ? 'warn' : 'secondary'"
+            class="card-fav-btn"
+            [pTooltip]="favService.isFavorite(item.route) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
+            (onClick)="$event.preventDefault(); $event.stopPropagation(); favService.toggle(item)"
+          />
+        </a>
+      }
+    </div>
+  </section>
+
+</div>

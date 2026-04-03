@@ -1,0 +1,37 @@
+<div class="showcase-wrapper">
+  <div class="showcase-header">
+    <i class="pi pi-palette showcase-header__icon"></i>
+    <div>
+      <h1 class="showcase-header__title">Componentes</h1>
+      <p class="showcase-header__subtitle">Catálogo interno de componentes compartilhados do projeto</p>
+    </div>
+  </div>
+
+  <p-divider />
+
+  <div class="showcase-grid">
+    @for (item of items; track item.route) {
+      <a [routerLink]="item.route" class="showcase-card">
+        <p-card>
+          <div class="showcase-card__content">
+            <div class="showcase-card__icon-wrap">
+              <i [class]="item.icon"></i>
+            </div>
+            <div class="showcase-card__info">
+              <div class="showcase-card__title-row">
+                <span class="showcase-card__label">{{ item.label }}</span>
+                <p-tag
+                  [value]="item.status"
+                  [severity]="tagSeverity(item.status)"
+                  styleClass="showcase-card__tag"
+                />
+              </div>
+              <p class="showcase-card__description">{{ item.description }}</p>
+              <span class="showcase-card__version">v{{ item.version }}</span>
+            </div>
+          </div>
+        </p-card>
+      </a>
+    }
+  </div>
+</div>

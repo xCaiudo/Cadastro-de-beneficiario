@@ -1,0 +1,47 @@
+<div class="number-wrapper">
+  <p-floatlabel>
+
+    @if (isDecimalMode()) {
+      <!-- Maskito: decimal / monetário — backspace e cursor corretos nativamente -->
+      <input
+        pInputText
+        [id]="inputId"
+        type="text"
+        inputmode="decimal"
+        [maskito]="decimalMaskOpts()"
+        [ngModel]="displayValue"
+        (ngModelChange)="onDecimalModelChange($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        (keydown)="onDecimalKeyDown($event)"
+        [disabled]="isDisabled()"
+        [attr.placeholder]="isFocused() && placeholder() ? placeholder() : null"
+        class="number-input"
+      />
+    } @else {
+      <!-- ngx-mask: telefone, CPF/CNPJ, custom -->
+      <input
+        pInputText
+        [id]="inputId"
+        type="text"
+        inputmode="numeric"
+        [mask]="currentMask()"
+        [dropSpecialCharacters]="false"
+        [allowNegativeNumbers]="false"
+        [ngModel]="displayValue"
+        (ngModelChange)="onModelChange($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        [disabled]="isDisabled()"
+        [attr.placeholder]="isFocused() && placeholder() ? placeholder() : null"
+        class="number-input"
+      />
+    }
+
+    <label [for]="inputId">
+      {{ label() }}
+      <span *ngIf="required()" class="required-mark" aria-hidden="true">*</span>
+    </label>
+
+  </p-floatlabel>
+</div>

@@ -1,0 +1,47 @@
+<header class="app-header">
+
+  <!-- Instância / Ambiente -->
+  <div class="header-instance">
+    <i class="pi pi-server"></i>
+    <span class="instance-label">{{ instance }}</span>
+  </div>
+
+  <!-- Espaço central -->
+  <div class="header-spacer"></div>
+
+  <!-- Versão (tooltip) -->
+  <button
+    class="version-btn"
+    [pTooltip]="versionTooltip"
+    tooltipPosition="bottom"
+    [escape]="false"
+  >
+    <i class="pi pi-info-circle"></i>
+  </button>
+
+  <!-- Divider visual -->
+  <span class="header-divider"></span>
+
+  <!-- Usuário -->
+  <div class="header-user">
+    <p-avatar
+      [label]="userInitials()"
+      shape="circle"
+      size="normal"
+      styleClass="user-avatar"
+    />
+    <span class="user-name">{{ userName() }}</span>
+  </div>
+
+  <!-- Logout -->
+  <p-button
+    icon="pi pi-sign-out"
+    [text]="true"
+    severity="danger"
+    size="small"
+    pTooltip="Sair"
+    tooltipPosition="bottom"
+    (onClick)="logout.emit()"
+  />
+
+</header>

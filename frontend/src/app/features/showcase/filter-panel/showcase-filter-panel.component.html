@@ -1,0 +1,135 @@
+<div class="demo-wrapper">
+  <div class="demo-header">
+    <a routerLink="/showcase" class="demo-back">
+      <i class="pi pi-arrow-left"></i> Componentes
+    </a>
+    <div class="demo-header__info">
+      <h1>app-filter-panel</h1>
+      <p-tag value="stable" severity="success" />
+      <span class="demo-version">v1.0.0</span>
+    </div>
+    <p class="demo-header__desc">Painel de filtros expansível com chips, botões de ação parametrizáveis e suporte a N componentes internos.</p>
+  </div>
+
+  <p-divider />
+
+  <div class="demo-examples">
+
+    <!-- Exemplo 1: 2 radios — vertical (padrão para 2 opções) -->
+    <section class="demo-section">
+      <h3 class="demo-section__title">Radio button — 2 opções, vertical</h3>
+      <app-filter-panel
+        title="Filtros"
+        [showSearch]="true"
+        searchPlaceholder="Buscar por nome..."
+        [columns]="2"
+        [activeFilters]="chips1()"
+        (searchChange)="onSearch1($event)"
+        (apply)="apply1()"
+        (clear)="clear1()"
+        (chipRemove)="removeChip1($event)"
+      >
+        <div class="filter-item">
+          <label class="filter-item__label">Status</label>
+          <div class="options-vertical">
+            <p-radioButton name="status1" value="Ativo" label="Ativo" [(ngModel)]="status1" />
+            <p-radioButton name="status1" value="Inativo" label="Inativo" [(ngModel)]="status1" />
+          </div>
+        </div>
+      </app-filter-panel>
+    </section>
+
+    <!-- Exemplo 2: 4 radios — horizontal (recomendado para 3+ opções) -->
+    <section class="demo-section">
+      <h3 class="demo-section__title">Radio button — 4 opções, horizontal <span class="demo-badge">recomendado para 3+</span></h3>
+      <app-filter-panel
+        title="Situação"
+        [columns]="1"
+        [activeFilters]="chips2b()"
+        (apply)="apply2b()"
+        (clear)="clear2b()"
+        (chipRemove)="removeChip2b($event)"
+      >
+        <div class="filter-item">
+          <label class="filter-item__label">Situação</label>
+          <div class="options-horizontal">
+            <p-radioButton name="situacao2" value="Ativo" label="Ativo" [(ngModel)]="situacao2" />
+            <p-radioButton name="situacao2" value="Inativo" label="Inativo" [(ngModel)]="situacao2" />
+            <p-radioButton name="situacao2" value="Bloqueado" label="Bloqueado" [(ngModel)]="situacao2" />
+            <p-radioButton name="situacao2" value="Pendente" label="Pendente" [(ngModel)]="situacao2" />
+          </div>
+        </div>
+      </app-filter-panel>
+    </section>
+
+    <!-- Exemplo 3: 2 checkboxes — vertical -->
+    <section class="demo-section">
+      <h3 class="demo-section__title">Checkbox — 2 opções, vertical + submitLabel customizado</h3>
+      <app-filter-panel
+        title="Filtros Avançados"
+        [expanded]="false"
+        [columns]="2"
+        submitLabel="Consultar"
+        submitIcon="pi pi-search"
+        clearLabel="Redefinir"
+        [activeFilters]="chips2()"
+        (apply)="apply2()"
+        (clear)="clear2()"
+        (chipRemove)="removeChip2($event)"
+      >
+        <div class="filter-item">
+          <label class="filter-item__label">Tipo de Pessoa</label>
+          <div class="options-vertical">
+            <p-checkbox label="Pessoa Física" [binary]="true" [(ngModel)]="tipoPF2" />
+            <p-checkbox label="Pessoa Jurídica" [binary]="true" [(ngModel)]="tipoPJ2" />
+          </div>
+        </div>
+      </app-filter-panel>
+    </section>
+
+    <!-- Exemplo 4: 3 checkboxes — horizontal -->
+    <section class="demo-section">
+      <h3 class="demo-section__title">Checkbox — 3 opções, horizontal</h3>
+      <app-filter-panel
+        title="Status da Conta"
+        [columns]="1"
+        [activeFilters]="chips4()"
+        (apply)="apply4()"
+        (clear)="clear4()"
+        (chipRemove)="removeChip4($event)"
+      >
+        <div class="filter-item">
+          <label class="filter-item__label">Status</label>
+          <div class="options-horizontal">
+            <p-checkbox label="Ativo" [binary]="true" [(ngModel)]="chkAtivo4" />
+            <p-checkbox label="Inativo" [binary]="true" [(ngModel)]="chkInativo4" />
+            <p-checkbox label="Bloqueado" [binary]="true" [(ngModel)]="chkBloqueado4" />
+          </div>
+        </div>
+      </app-filter-panel>
+    </section>
+
+    <!-- Exemplo 3: não expansível (sempre aberto) -->
+    <section class="demo-section">
+      <h3 class="demo-section__title">Não expansível (expandable=false)</h3>
+      <app-filter-panel
+        title="Filtros Fixos"
+        [expandable]="false"
+        [columns]="3"
+        (apply)="apply1()"
+        (clear)="clear1()"
+      >
+        <div class="filter-item">
+          <label class="filter-item__label">Campo A</label>
+        </div>
+        <div class="filter-item">
+          <label class="filter-item__label">Campo B</label>
+        </div>
+        <div class="filter-item">
+          <label class="filter-item__label">Campo C</label>
+        </div>
+      </app-filter-panel>
+    </section>
+
+  </div>
+</div>

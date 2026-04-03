@@ -1,0 +1,105 @@
+<aside class="sidebar" [class.collapsed]="collapsed()">
+
+  <!-- Logo + Toggle -->
+  <div class="sidebar-header">
+    <span class="sidebar-logo" *ngIf="!collapsed()">
+      <i class="pi pi-shield"></i> Beneficiário
+    </span>
+    <p-button
+      [icon]="collapsed() ? 'pi pi-bars' : 'pi pi-angle-left'"
+      [text]="true"
+      severity="secondary"
+      size="small"
+      (onClick)="toggleCollapse.emit()"
+      [pTooltip]="collapsed() ? 'Expandir menu' : 'Recolher menu'"
+      tooltipPosition="right"
+    />
+  </div>
+
+  <p-divider styleClass="my-0" />
+
+  <!-- Dashboard fixo no topo -->
+  <nav class="sidebar-nav">
+    <a
+      class="nav-item dashboard-item"
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      [pTooltip]="collapsed() ? 'Dashboard' : ''"
+      tooltipPosition="right"
+    >
+      <i class="pi pi-home"></i>
+      <span class="nav-label" *ngIf="!collapsed()">Dashboard</span>
+    </a>
+
+    <p-divider styleClass="my-1" *ngIf="!collapsed()" />
+
+    <!-- Grupos de navegação -->
+    @for (group of navGroups; track group.label) {
+      <div class="nav-group">
+
+        <!-- Header do grupo -->
+        <button
+          class="nav-group-header"
+          [pTooltip]="collapsed() ? group.label : ''"
+          tooltipPosition="right"
+          (click)="!collapsed() && toggleGroup(group.label)"
+        >
+          <i [class]="group.icon"></i>
+          @if (!collapsed()) {
+            <span class="group-label">{{ group.label }}</span>
+            @if (group.items.length > 0) {
+              <i class="pi group-chevron"
+                [class.pi-chevron-down]="isGroupExpanded(group.label)"
+                [class.pi-chevron-right]="!isGroupExpanded(group.label)">
+              </i>
+            }
+          }
+        </button>
+
+        <!-- Itens do grupo -->
+        @if (!collapsed() && isGroupExpanded(group.label)) {
+          @if (group.items.length === 0) {
+            <span class="nav-empty">Em breve...</span>
+          } @else {
+            @for (item of group.items; track item.route) {
+              <a
+                class="nav-item nav-child"
+                [routerLink]="item.route"
+                routerLinkActive="active"
+              >
+                <i [class]="item.icon"></i>
+                <span class="nav-label">{{ item.label }}</span>
+                <p-button
+                  [icon]="favService.isFavorite(item.route) ? 'pi pi-star-fill' : 'pi pi-star'"
+                  [text]="true"
+                  [rounded]="true"
+                  size="small"
+                  [severity]="favService.isFavorite(item.route) ? 'warn' : 'secondary'"
+                  class="fav-btn"
+                  (onClick)="onFavToggle($event, item)"
+                />
+              </a>
+            }
+          }
+        }
+
+        <!-- Itens colapsados (só ícone + tooltip) -->
+        @if (collapsed()) {
+          @for (item of group.items; track item.route) {
+            <a
+              class="nav-item"
+              [routerLink]="item.route"
+              routerLinkActive="active"
+              [pTooltip]="item.label"
+              tooltipPosition="right"
+            >
+              <i [class]="item.icon"></i>
+            </a>
+          }
+        }
+
+      </div>
+    }
+  </nav>
+
+</aside>

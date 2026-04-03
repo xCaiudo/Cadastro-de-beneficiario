@@ -1,0 +1,265 @@
+<div class="demo-wrapper">
+  <div class="demo-header">
+    <a routerLink="/showcase" class="demo-back">
+      <i class="pi pi-arrow-left"></i> Componentes
+    </a>
+    <div class="demo-header__info">
+      <h1>app-number</h1>
+      <p-tag value="stable" severity="success" />
+      <span class="demo-version">v1.0.0</span>
+    </div>
+    <p class="demo-header__desc">Input numérico com máscara dinâmica. Suporta telefone, CPF/CNPJ e máscaras customizadas via ngx-mask.</p>
+  </div>
+
+  <p-divider />
+
+  <form [formGroup]="form" class="demo-grid">
+
+    <!-- Telefone -->
+    <p-card header="Telefone (máscara dinâmica)">
+      <div class="demo-example">
+        <app-number
+          formControlName="telefone"
+          [type]="'phone'"
+          label="Telefone"
+          placeholder="(11) 99999‑9999"
+          (focused)="lastFocused.set('telefone')"
+          (blurred)="lastBlurred.set('telefone')"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor (raw):</span>
+          <code>{{ getValue('telefone') }}</code>
+        </div>
+      </div>
+    </p-card>
+
+    <!-- CPF / CNPJ -->
+    <p-card header="CPF / CNPJ (máscara dinâmica)">
+      <div class="demo-example">
+        <app-number
+          formControlName="cpfCnpj"
+          [type]="'cpf-cnpj'"
+          label="CPF / CNPJ"
+          placeholder="000.000.000‑00 ou 00.000.000/0000‑00"
+          (focused)="lastFocused.set('cpfCnpj')"
+          (blurred)="lastBlurred.set('cpfCnpj')"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor (raw):</span>
+          <code>{{ getValue('cpfCnpj') }}</code>
+        </div>
+      </div>
+    </p-card>
+
+    <!-- CEP — custom mask -->
+    <p-card header="CEP (máscara customizada)">
+      <div class="demo-example">
+        <app-number
+          formControlName="cep"
+          [type]="'custom'"
+          customMask="00000-000"
+          label="CEP"
+          placeholder="00000‑000"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor (raw):</span>
+          <code>{{ getValue('cep') }}</code>
+        </div>
+      </div>
+    </p-card>
+
+    <!-- returnAsString = true -->
+    <p-card header="Telefone como string (returnAsString=true)">
+      <div class="demo-example">
+        <app-number
+          formControlName="custom"
+          [type]="'phone'"
+          [returnAsString]="true"
+          label="Telefone como string"
+          placeholder="(11) 99999‑9999"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor (string):</span>
+          <code>{{ getValue('custom') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('custom') }}</span>
+        </div>
+      </div>
+    </p-card>
+
+    <!-- Required -->
+    <p-card header="Campo obrigatório (required)">
+      <div class="demo-example">
+        <app-number
+          formControlName="required"
+          [type]="'cpf-cnpj'"
+          label="CPF / CNPJ"
+          [required]="true"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor (raw):</span>
+          <code>{{ getValue('required') }}</code>
+        </div>
+      </div>
+    </p-card>
+
+    <!-- Eventos de foco -->
+    <p-card header="Eventos focus / blur">
+      <div class="demo-example">
+        <app-number
+          formControlName="telefone"
+          [type]="'phone'"
+          label="Foco/Blur"
+          (focused)="lastFocused.set('foco-blur')"
+          (blurred)="lastBlurred.set('foco-blur')"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Último focused:</span>
+          <code>{{ lastFocused() }}</code>
+        </div>
+        <div class="demo-output">
+          <span class="demo-output__label">Último blurred:</span>
+          <code>{{ lastBlurred() }}</code>
+        </div>
+      </div>
+    </p-card>
+
+  </form>
+
+  <p-divider />
+  <h2 class="demo-section-title">Decimal &amp; Monetário</h2>
+
+  <form [formGroup]="form" class="demo-grid">
+
+    <!-- Decimal padrão (6,2) -->
+    <p-card header="Decimal padrão — (6,2)">
+      <div class="demo-example">
+        <app-number
+          formControlName="decimal2"
+          [decimal]="true"
+          label="Valor decimal"
+          placeholder="Digite e use vírgula"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor:</span>
+          <code>{{ getValue('decimal2') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('decimal2') }}</span>
+        </div>
+        <small class="demo-hint">integerLength=6, decimalPlaces=2 (padrão)</small>
+      </div>
+    </p-card>
+
+    <!-- Decimal (8,4) -->
+    <p-card header="Decimal (8,4)">
+      <div class="demo-example">
+        <app-number
+          formControlName="decimal4"
+          [decimal]="true"
+          [integerLength]="8"
+          [decimalPlaces]="4"
+          label="Valor decimal (8,4)"
+          placeholder="Digite e use vírgula"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor:</span>
+          <code>{{ getValue('decimal4') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('decimal4') }}</span>
+        </div>
+        <small class="demo-hint">integerLength=8, decimalPlaces=4</small>
+      </div>
+    </p-card>
+
+    <!-- Decimal + milhar (6,2) -->
+    <p-card header="Decimal + milhar — (6,2)">
+      <div class="demo-example">
+        <app-number
+          formControlName="decimalThousand"
+          [decimal]="true"
+          [thousandSeparator]="true"
+          label="Valor com milhar"
+          placeholder="999.999,99"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor:</span>
+          <code>{{ getValue('decimalThousand') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('decimalThousand') }}</span>
+        </div>
+        <small class="demo-hint">integerLength=6, decimalPlaces=2, thousandSeparator=true</small>
+      </div>
+    </p-card>
+
+    <!-- BRL -->
+    <p-card header="Monetário — Real (BRL)">
+      <div class="demo-example">
+        <app-number
+          formControlName="valueBRL"
+          currency="BRL"
+          label="Valor em R$"
+          placeholder="R$ 999.999,99"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor:</span>
+          <code>{{ getValue('valueBRL') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('valueBRL') }}</span>
+        </div>
+        <small class="demo-hint">currency=BRL → decimal + milhar implícitos, separador BR</small>
+      </div>
+    </p-card>
+
+    <!-- USD -->
+    <p-card header="Monetário — Dólar (USD)">
+      <div class="demo-example">
+        <app-number
+          formControlName="valueUSD"
+          currency="USD"
+          label="Valor em $"
+          placeholder="$ 999,999.99"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor:</span>
+          <code>{{ getValue('valueUSD') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('valueUSD') }}</span>
+        </div>
+        <small class="demo-hint">currency=USD → separador americano (ponto decimal, vírgula milhar)</small>
+      </div>
+    </p-card>
+
+    <!-- EUR -->
+    <p-card header="Monetário — Euro (EUR)">
+      <div class="demo-example">
+        <app-number
+          formControlName="valueEUR"
+          currency="EUR"
+          label="Valor em €"
+          placeholder="€ 999.999,99"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor:</span>
+          <code>{{ getValue('valueEUR') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('valueEUR') }}</span>
+        </div>
+        <small class="demo-hint">currency=EUR → separador europeu (vírgula decimal, ponto milhar)</small>
+      </div>
+    </p-card>
+
+    <!-- Símbolo customizado -->
+    <p-card header="Monetário — símbolo customizado (¥)">
+      <div class="demo-example">
+        <app-number
+          formControlName="valueCustomCurrency"
+          currency="¥"
+          [decimalPlaces]="0"
+          [integerLength]="9"
+          label="Valor em ¥"
+          placeholder="¥ 999.999.999"
+        />
+        <div class="demo-output">
+          <span class="demo-output__label">Valor:</span>
+          <code>{{ getValue('valueCustomCurrency') }}</code>
+          <span class="demo-output__type">tipo: {{ getType('valueCustomCurrency') }}</span>
+        </div>
+        <small class="demo-hint">currency=¥, decimalPlaces=0, integerLength=9</small>
+      </div>
+    </p-card>
+
+  </form>
+</div>

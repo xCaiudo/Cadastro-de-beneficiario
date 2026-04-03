@@ -1,0 +1,116 @@
+.demo-wrapper {
+  padding: 2rem;
+  padding-top: 2.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.demo-section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  color: var(--p-text-color);
+}
+
+.demo-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--p-primary-500);
+  text-decoration: none;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+
+  &:hover { text-decoration: underline; }
+}
+
+.demo-header {
+  margin-top: 0;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0;
+      font-family: monospace;
+    }
+  }
+
+  &__desc {
+    color: var(--p-surface-500);
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.demo-version {
+  font-size: 0.75rem;
+  color: var(--p-surface-400);
+  font-family: monospace;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+
+  @media (max-width: 1366px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-example {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.demo-output {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+
+  &__label {
+    color: var(--p-surface-500);
+    white-space: nowrap;
+  }
+
+  code {
+    background: var(--p-surface-100);
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.4rem;
+    font-family: monospace;
+    color: var(--p-primary-700);
+    word-break: break-all;
+  }
+
+  &__type {
+    font-size: 0.7rem;
+    color: var(--p-surface-400);
+    font-family: monospace;
+    background: var(--p-surface-50);
+    border: 1px solid var(--p-surface-200);
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.35rem;
+    margin-left: auto;
+  }
+}
+
+.demo-hint {
+  font-size: 0.75rem;
+  color: var(--p-surface-400);
+  font-family: monospace;
+  margin-top: -0.25rem;
+}

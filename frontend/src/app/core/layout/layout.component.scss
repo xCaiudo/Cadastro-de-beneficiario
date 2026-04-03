@@ -1,0 +1,34 @@
+$sidebar-width: 15rem;
+$sidebar-collapsed-width: 4rem;
+$transition: 0.25s ease;
+
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--p-surface-ground);
+
+  .layout-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: $sidebar-width;
+    transition: margin-left $transition;
+    min-height: 100vh;
+  }
+
+  &.sidebar-collapsed .layout-body {
+    margin-left: $sidebar-collapsed-width;
+  }
+}
+
+.main-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-x: hidden;
+  background: var(--p-surface-ground);
+}
+
+// Responsive — 800x600
+@media (max-width: 900px) {
+  .layout-body { margin-left: $sidebar-collapsed-width !important; }
+}
