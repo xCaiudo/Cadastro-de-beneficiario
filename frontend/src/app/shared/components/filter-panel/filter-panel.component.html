@@ -1,0 +1,91 @@
+<div class="filter-panel">
+
+  <!-- HEADER -->
+  <div
+    class="filter-header"
+    [class.expandable]="expandable()"
+    (click)="toggle()"
+  >
+    <div class="filter-header-left">
+      <!-- Ícone de toggle -->
+      @if (expandable()) {
+        <i
+          class="pi"
+          [class.pi-chevron-down]="expanded()"
+          [class.pi-chevron-right]="!expanded()"
+        ></i>
+      } @else {
+        <i class="pi pi-filter"></i>
+      }
+
+      <!-- Título -->
+      @if (title()) {
+        <span class="filter-title">{{ title() }}</span>
+      }
+    </div>
+
+    <!-- Campo de pesquisa no header -->
+    @if (showSearch()) {
+      <div class="filter-search" (click)="$event.stopPropagation()">
+        <span class="filter-search-wrapper">
+          <i class="pi pi-search filter-search-icon"></i>
+          <input
+            pInputText
+            type="text"
+            [placeholder]="searchPlaceholder()"
+            [ngModel]="searchValue()"
+            (ngModelChange)="onSearchInput($event)"
+            class="filter-search-input"
+          />
+        </span>
+      </div>
+    }
+  </div>
+
+  <!-- CONTEÚDO EXPANSÍVEL -->
+  @if (expanded()) {
+    <div class="filter-body">
+
+      <!-- GRID DE ITENS (ng-content projetado) -->
+      <div class="filter-grid" [class]="gridClass()">
+        <ng-content />
+      </div>
+
+      <!-- AÇÕES -->
+      <div class="filter-actions">
+        <p-button
+          [label]="clearLabel()"
+          severity="secondary"
+          variant="outlined"
+          [icon]="clearIcon()"
+          (onClick)="onClear()"
+        />
+        <p-button
+          [label]="submitLabel()"
+          severity="primary"
+          [icon]="submitIcon()"
+          (onClick)="onApply()"
+        />
+      </div>
+
+    </div>
+  }
+
+  <!-- CHIPS DE FILTROS ATIVOS -->
+  @if (activeFilters().length > 0) {
+    <div class="filter-chips">
+      <span class="filter-chips-label">Filtros ativos:</span>
+      @for (chip of activeFilters(); track chip.key) {
+        <p-chip
+          [label]="chip.label"
+          [removable]="true"
+          (onRemove)="onChipRemove(chip.key)"
+          styleClass="filter-chip"
+          [pTooltip]="chip.label"
+          tooltipPosition="top"
+        />
+      }
+    </div>
+  }
+
+</div>

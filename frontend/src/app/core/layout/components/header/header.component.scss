@@ -1,0 +1,93 @@
+:host {
+  display: contents;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+  height: 3.5rem;
+  background: var(--p-surface-card);
+  border-bottom: 1px solid var(--p-surface-border);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+// Instância
+.header-instance {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--p-primary-50);
+  border: 1px solid var(--p-primary-200);
+  border-radius: 1rem;
+  color: var(--p-primary-color);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  i { font-size: 0.875rem; }
+}
+
+.header-spacer {
+  flex: 1;
+}
+
+// Botão de versão
+.version-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--p-text-muted-color);
+  cursor: pointer;
+  padding: 0.375rem;
+  border-radius: 50%;
+  transition: color 0.2s ease, background 0.2s ease;
+  font-size: 1rem;
+
+  &:hover {
+    color: var(--p-primary-color);
+    background: var(--p-surface-hover);
+  }
+}
+
+.header-divider {
+  width: 1px;
+  height: 1.5rem;
+  background: var(--p-surface-border);
+}
+
+// Usuário
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+
+  .user-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--p-text-color);
+    white-space: nowrap;
+    max-width: 12rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .user-avatar {
+    background: var(--p-primary-color);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+}
+
+// Responsivo — oculta nome em telas pequenas
+@media (max-width: 900px) {
+  .header-user .user-name { display: none; }
+  .header-instance span.instance-label { display: none; }
+}

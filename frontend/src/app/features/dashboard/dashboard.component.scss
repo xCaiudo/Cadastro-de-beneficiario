@@ -1,0 +1,102 @@
+.dashboard {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+// Welcome
+.welcome-section {
+  margin-bottom: 2rem;
+}
+
+.welcome-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--p-text-color);
+  margin: 0 0 0.5rem;
+}
+
+.welcome-subtitle {
+  font-size: 0.9375rem;
+  color: var(--p-text-muted-color);
+  margin: 0;
+}
+
+// Sections
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+  margin: 0 0 1rem;
+}
+
+// Cards Grid — responsivo
+.cards-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+}
+
+// Card de navegação
+.nav-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1.25rem 1rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--p-surface-border);
+  background: var(--p-surface-card);
+  text-decoration: none;
+  color: var(--p-text-color);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  position: relative;
+  cursor: pointer;
+
+  .card-icon {
+    font-size: 1.75rem;
+    color: var(--p-primary-color);
+  }
+
+  .card-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .card-fav-btn {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover {
+    border-color: var(--p-primary-color);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+    transform: translateY(-0.125rem);
+
+    .card-fav-btn { opacity: 1; }
+  }
+
+  &.fav-card {
+    border-color: var(--p-yellow-300);
+    background: var(--p-yellow-50);
+
+    .card-fav-btn { opacity: 1; }
+  }
+}
+
+// Responsivo 800x600
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  }
+
+  .welcome-title { font-size: 1.125rem; }
+}

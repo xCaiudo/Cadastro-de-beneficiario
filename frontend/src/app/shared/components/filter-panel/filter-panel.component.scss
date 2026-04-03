@@ -1,0 +1,256 @@
+.filter-panel {
+  border: 1px solid var(--p-surface-border, #e2e8f0);
+  border-radius: 0.5rem;
+  background: var(--p-surface-card, #ffffff);
+  overflow: hidden;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s;
+
+  &:focus-within {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+  }
+}
+
+// ─── HEADER ──────────────────────────────────────────────────────────────────
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--p-surface-section);
+  border-bottom: 1px solid var(--p-surface-border);
+  user-select: none;
+
+  &.expandable {
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--p-surface-hover);
+    }
+  }
+}
+
+.filter-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .pi {
+    font-size: 0.875rem;
+    color: var(--p-text-muted-color);
+    transition: transform 0.2s;
+  }
+}
+
+.filter-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+}
+
+.filter-search {
+  flex: 0 1 18rem;
+}
+
+.filter-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .filter-search-icon {
+    position: absolute;
+    left: 0.625rem;
+    color: var(--p-text-muted-color);
+    font-size: 0.875rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .filter-search-input {
+    width: 100%;
+    font-size: 0.875rem;
+    padding: 0.375rem 0.625rem 0.375rem 2rem;
+  }
+}
+
+// ─── BODY ────────────────────────────────────────────────────────────────────
+
+.filter-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: filterFadeIn 0.2s ease;
+}
+
+@keyframes filterFadeIn {
+  from { opacity: 0; transform: translateY(-0.25rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── GRID DE FILTROS ─────────────────────────────────────────────────────────
+
+.filter-grid {
+  display: grid;
+  gap: 1rem 1.5rem;
+  align-items: start;
+}
+
+// Colunas base (desktop 1920+)
+.filter-grid-1 { grid-template-columns: 1fr; }
+.filter-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.filter-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.filter-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.filter-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.filter-grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+// 1366px — reduz 1 coluna
+@media (max-width: 1366px) {
+  .filter-grid-4 { grid-template-columns: repeat(3, 1fr); }
+  .filter-grid-5 { grid-template-columns: repeat(4, 1fr); }
+  .filter-grid-6 { grid-template-columns: repeat(4, 1fr); }
+}
+
+// 1280px
+@media (max-width: 1280px) {
+  .filter-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .filter-grid-4 { grid-template-columns: repeat(3, 1fr); }
+  .filter-grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .filter-grid-6 { grid-template-columns: repeat(3, 1fr); }
+}
+
+// 900px (tablet / 800x600)
+@media (max-width: 900px) {
+  .filter-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-search {
+    flex: 1;
+    width: 100%;
+  }
+
+  .filter-grid-2,
+  .filter-grid-3,
+  .filter-grid-4,
+  .filter-grid-5,
+  .filter-grid-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// 600px
+@media (max-width: 600px) {
+  .filter-grid-2,
+  .filter-grid-3,
+  .filter-grid-4,
+  .filter-grid-5,
+  .filter-grid-6 {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── AÇÕES ───────────────────────────────────────────────────────────────────
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--p-surface-border);
+}
+
+// ─── CLASSES DE ORIENTAÇÃO (usadas no ng-content do pai) ──────────────────
+// Uso: <div class="options-vertical"> ou <div class="options-horizontal">
+
+::ng-deep {
+  .options-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .options-horizontal {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    align-items: center;
+  }
+
+  // Radio/checkbox > 2 opções → horizontal por padrão nas resoluções maiores
+  .options-horizontal--auto {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    align-items: center;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+  }
+}
+
+// ─── CHIPS DE FILTROS ATIVOS ────────────────────────────────────────────────
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--p-surface-border);
+  background: var(--p-surface-ground);
+  animation: filterFadeIn 0.2s ease;
+}
+
+.filter-chips-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--p-text-muted-color);
+  margin-right: 0.25rem;
+  white-space: nowrap;
+}
+
+::ng-deep .filter-chip {
+  font-size: 0.8125rem !important;
+  height: 1.625rem !important;
+  padding: 0 0.625rem !important;
+  border-radius: 999px !important;
+  background: var(--p-primary-100) !important;
+  color: var(--p-primary-700) !important;
+  border: 1px solid var(--p-primary-200) !important;
+
+  .p-chip-remove-icon {
+    font-size: 0.7rem !important;
+    margin-left: 0.25rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .filter-chips {
+    gap: 0.25rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+// ─── ITENS PROJETADOS (padronização interna) ──────────────────────────────────
+
+// Cada item direto dentro do grid recebe um label padrão
+::ng-deep .filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+
+  label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--p-text-muted-color);
+  }
+}

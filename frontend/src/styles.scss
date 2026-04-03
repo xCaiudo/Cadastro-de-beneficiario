@@ -1,1 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+/* ─── Breakpoints customizados (REM) ─────────────────────────────────────────
+   Resoluções alvo:
+   svga   → 800x600   (50rem)
+   hd720  → 1280x720  (80rem)
+   hd     → 1366x768  (85.375rem)
+   fhd    → 1920x1080 (120rem)
+   qhd    → 2560x1440 (160rem)
+──────────────────────────────────────────────────────────────────────────── */
+/* stylelint-disable at-rule-no-unknown */
+@theme {
+  --breakpoint-svga:  50rem;
+  --breakpoint-hd720: 80rem;
+  --breakpoint-hd:    85.375rem;
+  --breakpoint-fhd:   120rem;
+  --breakpoint-qhd:   160rem;
+}
+/* stylelint-enable at-rule-no-unknown */
+
+/* ─── Layer order: PrimeNG fica em layer próprio, abaixo das utilities do Tailwind ──
+   No Tailwind v4 os layers internos são: theme, base, components, utilities.
+   Declaramos "primeng" entre "base" e "utilities" para que:
+     - Tailwind base resets NÃO sobrescrevam PrimeNG (primeng > base)
+     - Tailwind utilities SIM sobrescrevam PrimeNG quando necessário
+──────────────────────────────────────────────────────────────────────────── */
+@layer base, primeng, utilities;
+
+/* ─── Variáveis globais ───────────────────────────────────────────────────── */
+:root {
+  --p-content-border-radius: 0.5rem;
+
+  /* Escala de fontes responsiva (base 16px = 1rem) */
+  --font-size-xs:   0.75rem;   /* 12px */
+  --font-size-sm:   0.875rem;  /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg:   1.125rem;  /* 18px */
+  --font-size-xl:   1.25rem;   /* 20px */
+  --font-size-2xl:  1.5rem;    /* 24px */
+
+  /* Espaçamentos padrão */
+  --spacing-xs:  0.25rem;
+  --spacing-sm:  0.5rem;
+  --spacing-md:  1rem;
+  --spacing-lg:  1.5rem;
+  --spacing-xl:  2rem;
+  --spacing-2xl: 3rem;
+}
+
+/* ─── Reset base ──────────────────────────────────────────────────────────── */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 16px; /* base para cálculo de REM */
+}
+
+/* ─── Escala de fonte por resolução ──────────────────────────────────────── */
+@media (max-width: 50rem) {         /* 800x600 */
+  html { font-size: 13px; }
+}
+
+@media (min-width: 50.0625rem) and (max-width: 80rem) {   /* 1280x720 */
+  html { font-size: 14px; }
+}
+
+@media (min-width: 80.0625rem) and (max-width: 120rem) {  /* 1366x768 → FHD */
+  html { font-size: 15px; }
+}
+
+@media (min-width: 120.0625rem) and (max-width: 160rem) { /* FHD → QHD */
+  html { font-size: 16px; }
+}
+
+@media (min-width: 160.0625rem) {   /* 2560x1440+ */
+  html { font-size: 18px; }
+}
